@@ -14,29 +14,23 @@
 			</p>
 		<p>Major: <br \> <input type='text' name='major'>
 			</p>
-		<p><button type='submit' name='bSubmit'>Submit</button></p>
-	</form>
+		<p><button type='submit' name='bSubmit'>Submit</button>
+	</form></p>
 
 	<a href='login.php'>Go Back</a>
 
 <?php
 	
-	class InfoStore {
-	
-	public $fname;
-	public $lname;
-	public $password;
-	public $major;
+	$fname = isset($_POST['fname']) ? $_POST['fname'] : '';
+	$lname = isset($_POST['lname']) ? $_POST['lname'] : '';
+	$password = isset($_POST['password']) ? $_POST['password'] : '';
+	$major = isset($_POST['major']) ? $_POST['major'] : '';
 
-	function
+//	function
 
 	function userInfo() {
-		$fname = isset($_POST['fname']) ? $_POST['fname'] : '';
-		$lname = isset($_POST['lname']) ? $_POST['lname'] : '';
-		$password = isset($_POST['password']) ? $_POST['password'] : '';
-		$major = isset($_POST['major']) ? $_POST['major'] : '';
 
-		$filename = 'logins.txt';
+		$filename = 'studentInfo.txt';
 		$str = "$fname, $lname, $password, $major";
 
 		$f1 = fopen($filename, 'w');
@@ -50,18 +44,15 @@
 		fclose($f2);
 	}
 
-	function inputTest() {
-		echo "$fname $lname $password $major";
-	}
-
+	function inputTest($fn, $ln, $pw, $maj) {
+		echo "<br \><br \>$fn<br \>$ln<br \>$pw<br \>$maj";
 	}
 	
 	# CLICKING SUBMIT BUTTON
 
 	if(isset($_POST['bSubmit'])) {
-
 //		usrInfoUpdate();
-		inputTest();
+		inputTest($fname, $lname, $password, $major);
 
 	}
 
