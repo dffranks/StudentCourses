@@ -43,6 +43,8 @@
 			echo "<p>Invalid ID and/or password.</p>";
 		}
 		fclose($handle);
+
+		
 	}
 
 ?>
