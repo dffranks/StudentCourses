@@ -5,82 +5,50 @@
 
 <body>
 
-	<form method='POST' action='login.php'>
-		<p>ID Number: <br \> <input type='number' name='usrID'>
-			</p>
-		<p>Password: <br \> <input type='password' name='password'>
-			</p>
-		<p><button type='submit' name='bSubmit'>Submit</button></p>
-	</form>
-	<a href='signup.php'>New Student Registration</a>
+<form method='POST' action='login.php'>
+	<p>ID Number: <br \> <input type='number' name='usrID' value="<?PHP print $usrID; ?>">
+		</p>
+	<p>Password: <br \> <input type='password' name='password'>
+		</p>
+	<p><button type='submit' name='bSubmit'>Submit</button></p>
+</form>
 
 <?php
-	
-class Login {
-	public $usrID;
-	public $password;
 
-	function loginCheck() {
-		$usrID = isset($_POST['usrID']) ? $_POST['usrID'] : 0;
-		$password = isset($_POST['password']) ? $_POST['password'] : '';
+	if(isset($_POST['bSubmit'])) {
+		$usrID = $_POST['usrID'];
+		$password = $_POST['password'];
 
-		$file = 'logins.txt';
-		$searchFor = "$usrID";
-		$idMatch;
+		loginCheck($usrID, $password);
+	}
 
-		$handle = fopen($file, 'r');
+	function loginCheck($id, $pw) {
+		$usrInfo = array($id, $pw);
 
-		while(!feof($f1)) {
+		// foreach($usrInfo as $item) {
+		// 	echo $item;
+		// }
 
-			$buffer = $fgets($handle);
-			if(strpos($buffer, $searchFor) !== FALSE) {
-				$idMatch = $buffer;
-			}else{
-				echo "Not found.";			
-			}
-			$fclose($file);
+		$pattern = "/$id,$pw;/";
+
+		$loginFile = 'logins.txt';
+		$handle = fopen($loginFile, 'r');
+		$content = file_get_contents($loginFile);
+
+		if (preg_match($pattern, $content)) {
+			session_start();
+			$_SESSION['user'] = $id;
+			header("Location: courses.php");
+		}else {
+			echo "<p>Invalid ID and/or password.</p>";
 		}
-		print_r($idMatch);
+		fclose($handle);
 	}
-
-	function displayTest() {
-
-
-
-	}
-
-	// function usrInfoUpdate() {
-	// 	global $usrID;
-	// 	global $password;
-
-	// 	$fname = 'logins.txt';
-	// 	$str = "$usrID,$password";
-
-	// 	$f1 = fopen($fname, 'w');
-	// 	fwrite($f1, $str);
-	// 	fclose($f1);
-
-	// 	$f2 = fopen($fname, 'r');
-	// 	while(!feof($f2)) {
-	// 		echo fgets($f2) . "<br />";
-	// 	}
-	// 	fclose($f2);
-	// }
-	
-	# CLICKING SUBMIT BUTTON
-	function submit() {
-		if(isset($_POST['bSubmit'])) {
-
-		loginCheck();
-		displayTest();
-
-		}
-	}
-}
 
 ?>
 
-
+<p><a href='signup.php'>New Student Registration</a>
+	</p>
 
 </body>
 </html>
