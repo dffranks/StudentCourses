@@ -25,10 +25,6 @@
 	function loginCheck($id, $pw) {
 		$usrInfo = array($id, $pw);
 
-		// foreach($usrInfo as $item) {
-		// 	echo $item;
-		// }
-
 		$pattern = "/$id,$pw;/";
 
 		$loginFile = 'logins.txt';

@@ -9,55 +9,71 @@
 
 <?php
 
+# If user logged in:
 if (isset($_SESSION['user'])) {
+
 	$usrID = $_SESSION['user'];
+
 	studData($usrID);
+	$fname;
+	$lname;
+	$major;
 
 	$studData = studData($usrID);
-	$fname = $studData['fname'];
-	$lname = $studData['lname'];
-	$major = $studData['major'];
+	if (!isset($studData)) {
+		echo "<p>An error has occured while fetching data.</p>";
+	} else {
+		$fname = $studData['fname'];
+		$lname = $studData['lname'];
+		$major = $studData['major'];
 
-	print<<<INFO
-		<h2>ID #$usrID <br />
-		$fname $lname<br />
-		Major in $major</h2>
+		print<<<INFO
+			<h2>ID #$usrID <br />
+			$fname $lname<br />
+			Major in $major</h2>
 INFO;
+	echo "<p><a href='logout.php'>Logout</a></p>";
+	}
 
-
+# If user not logged in:
 }else{
-	echo "Please log in.";
-
+	echo "<p>You must be logged in to view this page.</p>";
+	echo "<p><a href='login.php'>Return to Login Page</a></p>";
 }
+
+/***********************/
+/****** FUNCTIONS ******/
+/***********************/
 
 function studData($id) {
 	$ID = $id;
 
-	# Open the file. #
+	# Open the file
 	$file = 'studentInfo.txt';
 	$handle = fopen($file, 'r');
 
-	# Convert file contents to string. #
+	# Convert file contents to string
 	$content = file_get_contents($file);
 
-	$dataString = explode(';', $content);
-	foreach ($dataString as $arr1Val) {
-		$dataItem = explode(',', $arr1Val);
+	# Convert string to array $dataArr[]
+	$dataArr = explode(';', $content);
+	foreach ($dataArr as $value) {
+		# Convert each value to array $dataItems[]
+		$dataItems = explode(',', $value);
 
-		if ($dataItem[0] === $ID) {
-			$dataOut['fname'] = $dataItem[1];
-			$dataOut['lname'] = $dataItem[2];
-			$dataOut['major'] = $dataItem[3];
-
+		# If first value of $dataItems[] matches
+		# current SESSION id, return $dataOut[]
+		if ($dataItems[0] === $ID) {
+			$dataOut['fname'] = $dataItems[1];
+			$dataOut['lname'] = $dataItems[2];
+			$dataOut['major'] = $dataItems[3];
 			return $dataOut;
 		}
 	}
+	fclose($handle);
 }
 
-
 ?>
-
-<p><a href='login.php'>Back to Login Page</a></p>
 
 </div> <!--end wrapper-->
 
