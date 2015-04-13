@@ -1,8 +1,14 @@
-#wrapper {
-	text-align: center;
-}
+/*#wrapper { text-align: center; }*/
 
-.studProps {
-	font-weight: bold;
-	font-size: 10px;
-}
+.studProps { font-weight: bold;
+             font-size: 10px; }
+
+table { border-collapse: collapse; 
+        border-bottom: solid 1px;
+        border-top: solid 1px; }
+
+tr { border: solid 1px; }
+th { padding: 2px 7px; }
+td { border-left: solid 1px;
+     border-right: solid 1px;
+     padding: 2px 7px; }
