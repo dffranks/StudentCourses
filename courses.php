@@ -26,17 +26,23 @@ if (isset($_SESSION['user'])) {
 		$lname = $grabStudData['lname'];
 		$major = $grabStudData['major'];
 
-		print<<<INFO
+		print<<<HEADER
 			<h2>ID #$usrID <br />
 			$fname $lname<br />
 			Major in $major</h2>
-INFO;
-		echo "<div id ='wrapper'>";
-		echo "<h1><u>Available Courses:</u></h1>";
+			<p><a href='logout.php'>Logout</a></p>
+
+			<div id ='wrapper'>
+			<h1><u>Available Courses:</u></h1>
+HEADER;
 
 		grabCourseData();	
 
-		echo "<p><a href='logout.php'>Logout</a></p>";
+		print<<<FOOTER
+			<form method='POST' action='courses.php'>
+				<p><button type='submit' name='bSubmit'>Add These Courses</button></p>
+			</form>
+FOOTER;
 	}
 
 # If user NOT logged in:
@@ -92,10 +98,10 @@ function grabCourseData() {
 			<th>Currently Enrolled</th>
 		</tr>
 TABLEHEAD;
-
+	
 	foreach($dataArr as $k1=>$arr1Val) {
 		$dataItems = explode(',', $arr1Val);
-
+		if($dataItems[0] === '#') { break; }
 		print<<<TABLE
 			<tr>
 				<td><input type="checkbox" name="$dataItems[0]"></td>
@@ -105,6 +111,7 @@ TABLEHEAD;
 				<td>$dataItems[3]</td>
 			</tr>
 TABLE;
+
 	}
 	echo "</table>";
 }

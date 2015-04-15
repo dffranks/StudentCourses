@@ -32,6 +32,7 @@
 		$content = file_get_contents($loginFile);
 
 		if (preg_match($pattern, $content)) {
+			logEntry($id);
 			session_start();
 			$_SESSION['user'] = $id;
 			header("Location: courses.php");
@@ -41,6 +42,14 @@
 		fclose($handle);
 
 		
+	}
+
+	function logEntry($logID){
+		date_default_timezone_set('America/New_York');
+		$handle = fopen('logs.txt', 'a');
+		$stamp = "\n$logID\t\t" . date('M d Y') . "\t\t" . date('H:i:s');
+		fwrite($handle, $stamp);
+		fclose($handle);
 	}
 
 ?>
