@@ -1,4 +1,7 @@
+<?php session_start();
+ob_start();?>
 <!DOCTYPE html>
+
 <head>
 	<title>Login</title>
 </head>
@@ -33,15 +36,15 @@
 
 		if (preg_match($pattern, $content)) {
 			logEntry($id);
-			session_start();
-			$_SESSION['user'] = $id;
+ 			$_SESSION['user'] = $id;
 			header("Location: courses.php");
+			ob_end_flush();
 		}else {
 			echo "<p>Invalid ID and/or password.</p>";
 		}
 		fclose($handle);
 
-		
+
 	}
 
 	function logEntry($logID){
