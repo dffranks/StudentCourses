@@ -5,7 +5,6 @@
 	<link rel="stylesheet" type="text/css" href="studentCourses.css" />
 </head>
 <body>
-<div id ="wrapper">
 
 <?php
 
@@ -15,7 +14,6 @@ if (isset($_SESSION['user'])) {
 	$usrID = $_SESSION['user'];
 
 	grabStudData($usrID);
-	grabCourseData();
 	$fname;
 	$lname;
 	$major;
@@ -33,10 +31,15 @@ if (isset($_SESSION['user'])) {
 			$fname $lname<br />
 			Major in $major</h2>
 INFO;
-	echo "<p><a href='logout.php'>Logout</a></p>";
+		echo "<div id ='wrapper'>";
+		echo "<h1><u>Available Courses:</u></h1>";
+
+		grabCourseData();	
+
+		echo "<p><a href='logout.php'>Logout</a></p>";
 	}
 
-# If user not logged in:
+# If user NOT logged in:
 }else{
 	echo "<p>You must be logged in to view this page.</p>";
 	echo "<p><a href='login.php'>Return to Login Page</a></p>";
@@ -75,51 +78,38 @@ function grabStudData($id) {
 }
 
 function grabCourseData() {
-	$courses = array();
 	$file = 'courses.txt';
 	$handle = fopen($file, 'r');
 	$content = file_get_contents($file);
 	$dataArr = explode(';', $content);
+	print<<<TABLEHEAD
+		<table align='center'>
+		<tr>
+			<th>✓</th>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Max Students</th>
+			<th>Currently Enrolled</th>
+		</tr>
+TABLEHEAD;
+
 	foreach($dataArr as $k1=>$arr1Val) {
-		echo "Arr1: $k1 => $arr1Val</br>";
 		$dataItems = explode(',', $arr1Val);
-		foreach ($dataItems as $k2=>$arr2Val) {
-		//	$courses array( array($k1))
-		// FUCK
 
-
-			echo "Arr2: $k2 => $arr2Val</br>";
-		}
-		
-	//	$dataOut[]
+		print<<<TABLE
+			<tr>
+				<td><input type="checkbox" name="$dataItems[0]"></td>
+				<td>$dataItems[0]</td>
+				<td>$dataItems[1]</td>
+				<td>$dataItems[2]</td>
+				<td>$dataItems[3]</td>
+			</tr>
+TABLE;
 	}
+	echo "</table>";
 }
 
 ?>
-
-<table align="center">
-	<tr>
-		<th>✓</th>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Max Students</th>
-		<th>Currently Enrolled</th>
-	</tr>
-	<tr>
-		<td><input type="checkbox" name="hist101"></td>
-		<td>HIST101</td>
-		<td>World History I</td>
-		<td>30</td>
-		<td>22</td>
-	</tr>
-	<tr>
-		<th><input type="checkbox" name="math304"></th>
-		<td>MATH304</td>
-		<td>Advanced Calculus</td>
-		<td>20</td>
-		<td>17</td>
-	</tr>
-</table>
 
 </div> <!--end wrapper-->
 

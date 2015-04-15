@@ -1,1 +1,7 @@
-HIST1101,World History I,30,20;MATH3104,Advanced Calculus,16,10;CIST2351,PHP Programming I,30,27;MUSC1101,Music Appreciation,24,24;BIOL1305,Biology I,24,20;
+HIST1101,World History I,30,20;
+MATH3104,Advanced Calculus,16,10;
+CIST2351,PHP Programming I,30,27;
+MUSC1101,Music Appreciation,24,24;
+BIOL1305,Biology I,24,20;
+CIST3509,Intro to Python,16,16;
+WINL1101,Window Licking 1101,7,2
