@@ -6,6 +6,8 @@
 <body>
 
 	<form method='POST' action='signup.php'>
+		<p>User ID: <br /><input type='number' name='id'>
+			</p>
 		<p>First Name: <br \> <input type='text' name='fname'>
 			</p>
 		<p>Last Name: <br \> <input type='text' name='lname'>
@@ -20,40 +22,38 @@
 	<a href='login.php'>Go Back</a>
 
 <?php
-	
+
+	$id = isset($_POST['id']) ? $_POST['id'] : 0;
 	$fname = isset($_POST['fname']) ? $_POST['fname'] : '';
 	$lname = isset($_POST['lname']) ? $_POST['lname'] : '';
 	$password = isset($_POST['password']) ? $_POST['password'] : '';
 	$major = isset($_POST['major']) ? $_POST['major'] : '';
 
+
 //	function
 
-	function userInfo() {
+	function userInfo($id,$fn,$ln,$pw,$maj) {
 
-		$filename = 'studentInfo.txt';
-		$str = "$fname, $lname, $password, $major";
+		$studentInfo = 'studentInfo.txt';
+		$logins = 'logins.txt';
+		$str1 = "$id,$fn,$ln,$maj;";
+		$str2 = "$id,$pw;";
 
-		$f1 = fopen($filename, 'w');
-		fwrite($f1, $str);
+
+		$f1 = fopen($studentInfo, 'a+');
+		fwrite($f1, $str1);
 		fclose($f1);
 
-		$f2 = fopen($filename, 'r');
-		while(!feof($f2)) {
-			echo fgets($f2) . "<br />";
-		}
+		$f2 = fopen($logins, 'a+');
+		fwrite($f2, $str2);
 		fclose($f2);
 	}
 
-	function inputTest($fn, $ln, $pw, $maj) {
-		echo "<br \><br \>$fn<br \>$ln<br \>$pw<br \>$maj";
-	}
-	
+
 	# CLICKING SUBMIT BUTTON
 
 	if(isset($_POST['bSubmit'])) {
-//		usrInfoUpdate();
-		inputTest($fname, $lname, $password, $major);
-
+		userInfo($id, $fname, $lname, $password, $major);
 	}
 
 
