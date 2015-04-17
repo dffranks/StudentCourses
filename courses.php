@@ -153,6 +153,9 @@ FOOT;
 function writeStudData($selectIn) {
 	$id = $_SESSION['user'];
 	$stu = grabStudData($id);
+	foreach($stu as $v) {
+		echo $v . "<br />";
+	}
 
 	if(!isset($selectIn[3])) {
 		echo "$selectIn[0], $selectIn[1], and $selectIn[2] have been<br />added to your schedule.<br /><br />";
@@ -162,12 +165,16 @@ function writeStudData($selectIn) {
 		$str = "$stu[id],$stu[fn],$stu[ln],$stu[maj],$stu[c1],$stu[c2],$stu[c3];";
 		echo $str;
 
-// 		$content = file_get_contents('studentInfo.txt');
-// 		$handle = fopen('studentInfo.txt', 'a');
-// 		$start = strpos($content, $id);
-// 		$fseek($handle, $start);
-// 		echo $start;
-// 		fclose($handle);
+		$handle = fopen('studentInfo.txt', 'a+');
+		$content = file_get_contents('studentInfo.txt');
+
+		str_ireplace($stu, $str, $content);
+
+		// $start = strpos($content, $id);
+		// fseek($handle, $start);
+
+		// echo $start;
+		fclose($handle);
 	}else{
 		echo "You may only choose a maximum of three courses.";
 	}
