@@ -125,7 +125,7 @@ HEADER;
 HEAD;
 
 		#Start of form
-		echo "<form method='POST' action='courses2.php'>";
+		echo "<form method='POST' action='courses.php'>";
 		foreach($courseList as $v) {
 			print<<<ROW
 				<tr>
