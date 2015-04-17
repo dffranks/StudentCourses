@@ -60,5 +60,8 @@ ob_start();?>
 <p><a href='signup.php'>New Student Registration</a>
 	</p>
 
+<hr>
+<div id="footer">Designed by Ben Williams and Daniel Franks.</div>
+
 </body>
 </html>

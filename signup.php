@@ -36,7 +36,7 @@
 
 		$studentInfo = 'studentInfo.txt';
 		$logins = 'logins.txt';
-		$str1 = "$id,$fn,$ln,$maj;";
+		$str1 = "$id,$fn,$ln,$maj,,,;";
 		$str2 = "$id,$pw;";
 
 
@@ -59,6 +59,8 @@
 
 ?>
 
+<hr>
+<div id="footer">Designed by Ben Williams and Daniel Franks.</div>
 
 
 </body>

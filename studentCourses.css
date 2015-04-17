@@ -12,3 +12,6 @@ th { padding: 2px 7px; }
 td { border-left: solid 1px;
      border-right: solid 1px;
      padding: 2px 7px; }
+#footer { font-style: italic; 
+		  font-size: .8em; 
+		  color: #101010 ;}

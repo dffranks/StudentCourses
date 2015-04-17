@@ -156,22 +156,15 @@ function writeStudData($selectIn) {
 
 	$stuString = "$stu[id],$stu[fn],$stu[ln],$stu[maj],$stu[c1],$stu[c2],$stu[c3];";
 
-	foreach($stu as $v) {
-		echo $v . "<br />";
-	}
-
 	if(!isset($selectIn[3])) {
-		echo "$selectIn[0], $selectIn[1], and $selectIn[2] have been<br />added to your schedule.<br /><br />";
+		echo "<b>$selectIn[0]</b>, <b>$selectIn[1]</b>, and <b>$selectIn[2]</b> have been added to your schedule.<br /><br />";
 		$stu['c1'] = $selectIn[0];
 		$stu['c2'] = $selectIn[1];
 		$stu['c3'] = $selectIn[2];
 		$str = "$stu[id],$stu[fn],$stu[ln],$stu[maj],$stu[c1],$stu[c2],$stu[c3];";
-		echo $str;
 
 		$handle = fopen('studentInfo.txt', 'c+');
 		$content = file_get_contents('studentInfo.txt');
-
-//		str_ireplace($stu, $str, $content);
 
 		fwrite($handle, str_ireplace($stuString,$str,$content));
 		fclose($handle);
@@ -183,6 +176,9 @@ function writeStudData($selectIn) {
 ?>
 
 </div> <!--end wrapper-->
+
+<hr>
+<div id="footer">Designed by Ben Williams and Daniel Franks.</div>
 
 </body>
 </html>
