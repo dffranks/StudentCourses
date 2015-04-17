@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<title>New Student Registration</title>
+	<link rel="stylesheet" type="text/css" href="studentCourses.css" />
 </head>
 
 <body>

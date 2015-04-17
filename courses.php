@@ -8,6 +8,8 @@
 
 <?php
 
+//	error_reporting(E_ALL ^ E_NOTICE);
+
 	# If user logged in:
 	if (isset($_SESSION['user'])) {
 
@@ -90,7 +92,7 @@ HEADER;
 		$content = file_get_contents($file);
 		$dataArr = explode(';', $content);
 
-		$courseNum = 0;
+//		$courseNum = 0;
 		$courseOut = array();
 
 		foreach($dataArr as $k1=>$val) {
@@ -98,13 +100,13 @@ HEADER;
 
 			if($dataItems[0] === '#') { break; }
 
-			$courseOut[$courseNum] = array();
-			$courseOut[$courseNum]['id'] = $dataItems[0];
-			$courseOut[$courseNum]['name'] = $dataItems[1];
-			$courseOut[$courseNum]['stuMax'] = $dataItems[2];
-			$courseOut[$courseNum]['stuEnrl'] = $dataItems[3];
+			$courseOut[$dataItems[0]] = array();
+			$courseOut[$dataItems[0]]['id'] = $dataItems[0];
+			$courseOut[$dataItems[0]]['name'] = $dataItems[1];
+			$courseOut[$dataItems[0]]['stuMax'] = $dataItems[2];
+			$courseOut[$dataItems[0]]['stuEnrl'] = $dataItems[3];
 
-			$courseNum++;
+	//		$courseNum++;
 		}
 		return $courseOut;
 
@@ -150,17 +152,17 @@ FOOT;
 		
 	}
 
-function writeStudData($selectIn) {
+function writeStudData($selected) {
 	$id = $_SESSION['user'];
 	$stu = grabStudData($id);
 
 	$stuString = "$stu[id],$stu[fn],$stu[ln],$stu[maj],$stu[c1],$stu[c2],$stu[c3];";
 
-	if(!isset($selectIn[3])) {
-		echo "<b>$selectIn[0]</b>, <b>$selectIn[1]</b>, and <b>$selectIn[2]</b> have been added to your schedule.<br /><br />";
-		$stu['c1'] = $selectIn[0];
-		$stu['c2'] = $selectIn[1];
-		$stu['c3'] = $selectIn[2];
+	if(!isset($selected[3]) && isset($selected[0])) {
+//		echo "Courses added to your schedule:<br /><b>$selected[0]</b><br/><b>$selected[1]</b><br /><b>$selected[2]</b>";
+		$stu['c1'] = $selected[0];
+		$stu['c2'] = $selected[1];
+		$stu['c3'] = $selected[2];
 		$str = "$stu[id],$stu[fn],$stu[ln],$stu[maj],$stu[c1],$stu[c2],$stu[c3];";
 
 		$handle = fopen('studentInfo.txt', 'c+');
@@ -168,9 +170,31 @@ function writeStudData($selectIn) {
 
 		fwrite($handle, str_ireplace($stuString,$str,$content));
 		fclose($handle);
+
+		writeCourseData($selected);
+
 	}else{
-		echo "You may only choose a maximum of three courses.";
+		echo "<p>You must choose at least one course, and a maximum of three.</p>";
 	}
+}
+
+function writeCourseData($selected) {
+	$courseList = grabCourseData();
+
+	for($n=0; $n<3; $n++) {
+		$stuEnrl = $courseList[$selected[$n]]['stuEnrl'];
+		$stuMax = $courseList[$selected[$n]]['stuMax'];
+		echo $stuEnrl . " (b4)<br />"; #test
+		if ($stuEnrl < $stuMax) {
+			$stuEnrl++;
+			echo $stuEnrl . " (aftr)<br />"; #test
+		}else{
+			echo "<p><b>Course $selected[$n] is full!</b></p>";
+		}
+	}
+
+	$handle = fopen('courses.txt', 'c+');
+	$content = file_get_contents('courses.txt');
 }
 
 ?>

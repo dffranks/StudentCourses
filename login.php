@@ -4,6 +4,7 @@ ob_start();?>
 
 <head>
 	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="studentCourses.css" />
 </head>
 
 <body>
