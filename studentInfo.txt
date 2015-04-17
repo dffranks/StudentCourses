@@ -1,1 +1,1 @@
-111,David,Barnwell,History,null,null,null;222,Bob,Robertson,Math,null,null,null;333,Jack,Daniels,Science,null,null,null;444,Carla,Mendoza,Cosmetics,null,null,null;555,Marco,Polo,Engineering,null,null,null;
+111,David,Barnwell,History,null,null,null;222,Bob,Robertson,Math,MATH3104,CIST2351,BIOL1305;333,Jack,Daniels,Science,null,null,null;444,Carla,Mendoza,Cosmetics,null,null,null;555,Marco,Polo,Engineering,null,null,null;,null,null,null;
