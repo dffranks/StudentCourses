@@ -46,6 +46,10 @@
 				<h2>ID #$usrID <br />
 				$fname $lname<br />
 				Major in $major</h2>
+				<h4>Currently Enrolled in:<br />
+				$course1<br />
+				$course2<br />
+				$course3</h4>
 				<p><a href='logout.php'>Logout</a></p>
 
 				<div id ='wrapper'>
@@ -182,19 +186,28 @@ function writeCourseData($selected) {
 	$courseList = grabCourseData();
 
 	for($n=0; $n<3; $n++) {
-		$stuEnrl = $courseList[$selected[$n]]['stuEnrl'];
-		$stuMax = $courseList[$selected[$n]]['stuMax'];
-		echo $stuEnrl . " (b4)<br />"; #test
+		$id = $selected[$n];
+		$name = $courseList[$id]['name'];
+		$stuMax = $courseList[$id]['stuMax'];
+		$stuEnrl = $courseList[$id]['stuEnrl'];
+
+		$str = "$id,$name,$stuMax,$stuEnrl;";
+
 		if ($stuEnrl < $stuMax) {
+			echo $stuEnrl . " (b4)<br />"; #test
 			$stuEnrl++;
+			$strNew = "$id,$name,$stuMax,$stuEnrl;";
 			echo $stuEnrl . " (aftr)<br />"; #test
+
+			$handle = fopen('courses.txt', 'c');
+			$content = file_get_contents('courses.txt');
+			fwrite($handle, str_ireplace($str, $strNew, $content));
+			fclose($handle);
 		}else{
 			echo "<p><b>Course $selected[$n] is full!</b></p>";
 		}
 	}
-
-	$handle = fopen('courses.txt', 'c+');
-	$content = file_get_contents('courses.txt');
+	header("Location: courses.php");
 }
 
 ?>
