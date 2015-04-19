@@ -15,3 +15,6 @@ td { border-left: solid 1px;
 #footer { font-style: italic; 
 		  font-size: .8em; 
 		  color: #101010 ;}
+#hide { visibility: hidden;
+		display: block; }
+#show { }

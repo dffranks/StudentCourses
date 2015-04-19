@@ -1,1 +1,1 @@
-MATH3104,Advanced Calculus,16,3;CIST2351,PHP Programming I,30,3;MUSC1101,Music Appreciation,24,3;BIOL1305,Biology I,24,1;CIST3509,Intro to Python,16,1;WINL1101,Window Licking 1101,17,1;#
+MATH3104,Advanced Calculus,16,16;CIST2351,PHP Programming I,30,26;MUSC1101,Music Appreciation,24,19;BIOL1305,Biology I,24,16;CIST3509,Intro to Python,16,9;WINL1101,Window Licking 1101,17,17;#

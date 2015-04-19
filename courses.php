@@ -8,7 +8,7 @@
 
 <?php
 
-//	error_reporting(E_ALL ^ E_NOTICE);
+	error_reporting(E_ALL ^ E_NOTICE);
 
 	# If user logged in:
 	if (isset($_SESSION['user'])) {
@@ -47,12 +47,12 @@
 				$fname $lname<br />
 				Major in $major</h2>
 				<h4>Currently Enrolled in:<br />
-				$course1<br />
-				$course2<br />
-				$course3</h4>
+				$course1 <br />
+				$course2 <br />
+				$course3 </h4>
 				<p><a href='logout.php'>Logout</a></p>
 
-				<div id ='wrapper'>
+				<div id='wrapper'>
 				<h1><u>Available Courses:</u></h1>
 HEADER;
 		}
@@ -122,7 +122,7 @@ HEADER;
 		print<<<HEAD
 			<table align='center'>
 			<tr>
-				<th>✓</th>
+				<th></th>
 				<th>ID</th>
 				<th>Name</th>
 				<th>Max Students</th>
@@ -133,7 +133,9 @@ HEAD;
 		#Start of form
 		echo "<form method='POST' action='courses.php'>";
 		foreach($courseList as $v) {
-			print<<<ROW
+
+			if ($v['stuEnrl'] != $v['stuMax']) {
+				print<<<ROW
 				<tr>
 					<td><input type="checkbox" name='id[]' value="$v[id]"></td>
 					<td>$v[id]</td>
@@ -141,7 +143,9 @@ HEAD;
 					<td>$v[stuMax]</td>
 					<td>$v[stuEnrl]</td>
 				</tr>
+				</span>
 ROW;
+			}
 		}
 		print<<<FOOT
 			</table>
@@ -203,11 +207,10 @@ function writeCourseData($selected) {
 			$content = file_get_contents('courses.txt');
 			fwrite($handle, str_ireplace($str, $strNew, $content));
 			fclose($handle);
-		}else{
-			echo "<p><b>Course $selected[$n] is full!</b></p>";
 		}
 	}
 	header("Location: courses.php");
+	
 }
 
 ?>
